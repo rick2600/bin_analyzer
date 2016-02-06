@@ -29,3 +29,4 @@ optional arguments:
 ```
 
 ## Example
+![example](samples/example00.png)
