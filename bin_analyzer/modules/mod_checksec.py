@@ -49,7 +49,7 @@ class Mod_CheckSec:
             elif pie == 1:
                 helper.print_good("pie on ")
             else:
-                helper.print_normal("    dso    ")
+                helper.print_normal("  dso  ")
             helper.print_normal("|")
 
 
