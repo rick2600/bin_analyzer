@@ -10,7 +10,7 @@ class Mod_CheckSec:
         self.desc = "find use of dangerous functions"
 
     def run(self, helper, filelist, args):
-        helper.print_title("Find use of dangerous functions")
+        helper.print_title("Finding use of dangerous functions")
         for fname in filelist:
             funcs = []
             with open(fname, "rb") as f:
