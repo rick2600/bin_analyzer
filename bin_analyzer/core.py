@@ -69,12 +69,19 @@ class BinAnalyzer:
                         self.helper.print_normal("\n")
 
         self.helper.print_normal("\n    Found %d binaries\n\n" %(len(self.filelist)))
-  
+   
+    def create_out_dir(self):
+        out_dir = os.path.abspath(self.args.out_dir)
+        if not os.path.exists(out_dir):
+            os.mkdir(out_dir)
+        else:
+            self.helper.print_warning("%s exists, using previous results" %(out_dir))
+            self.helper.print_normal("\n")
 
     def pre_scan(self):
         self.create_list_of_binaries()
+        self.create_out_dir()
         temp_list = list(self.mod_list)
-
         if self.mods_choice != None:
             if self.args.exclude:
                 for m in temp_list:
@@ -88,6 +95,10 @@ class BinAnalyzer:
                     if mod.name not in self.mods_choice:
                         self.mod_list.remove(m)
                     del mod
+        else:
+            self.mod_list = []
+            self.helper.print_warning("select modules to run")
+            self.helper.print_normal("\n")
 
     def scan(self):
         for m in self.mod_list:

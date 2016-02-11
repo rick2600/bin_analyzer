@@ -33,9 +33,9 @@ def parse_args():
                         action='store_true', 
                         help='disable coloring')
 
-    #parser.add_argument('-o', '--out-dir', 
-    #                    type=str, 
-    #                    help='directory to save output')
+    parser.add_argument('-o', '--out-dir', 
+                        type=str, 
+                        help='directory to save output')
 
     parser.set_defaults(no_color=False)
 
@@ -47,9 +47,9 @@ def validate_args(args):
         if args.dir == None:
             print "-d required"
             valid = False
-        #if args.out_dir == None:
-        #    print "-o required"
-        #    valid = False
+        if args.out_dir == None:
+            print "-o required"
+            valid = False
 
     return valid
 

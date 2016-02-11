@@ -26,9 +26,6 @@ class Mod_CheckSec:
                 if "scanf" in all_funcs: funcs.append("scanf")
                 if "sprintf" in all_funcs: funcs.append("sprintf")
 
-
-
-
                 funcs_str = ", ".join(funcs)
                 helper.print_normal("    %s|" %(fname.ljust(60)))
                 helper.print_bad("%s" %(funcs_str))
