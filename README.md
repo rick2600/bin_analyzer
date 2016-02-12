@@ -25,7 +25,10 @@ optional arguments:
     dangerous            - find use of dangerous functions
     finddeps             - find dependencies of a binary
     sha1sum              - compute and check SHA1 message digest
+    strings              - look for interesting strings
     tagger               - try to identify the purpose of binary and tag it
+    topfuncref           - list top 10 functions referenced
+
 ```
 
 ## Example
