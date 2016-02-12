@@ -2,14 +2,14 @@
 import pwnlib
 import re
 
-class Mod_TopFuncCall:
+class Mod_TopFuncRef:
         
     def __init__(self):
-        self.name = "topfunccall"
-        self.desc = "list top 10 func calls"
+        self.name = "topfuncref"
+        self.desc = "list top 10 functions referenced"
 
     def run(self, helper, filelist, args):
-        helper.print_title("Listing top 10 func calls")
+        helper.print_title("Listing top 10 functions referenced")
         for fname in filelist:
             with open(fname, 'rb') as f:
                 elf = pwnlib.elf.ELF(fname)
