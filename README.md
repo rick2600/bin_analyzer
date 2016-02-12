@@ -3,8 +3,8 @@ Toy project for static analysis of ELF binaries
 
 ## Help
 ```
-usage: bin_analyzer.py [-h] [-l] [-d DIR] [-v VERBOSE] [-m MODS] [-x]
-                       [--no-color]
+usage: bin_analyzer.py [-h] [-l] [-d DIR] [-v VERBOSE] [-m MODS] [--no-color]
+                       [-o OUT_DIR]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -14,8 +14,9 @@ optional arguments:
                         control verbosity (1-3)
   -m MODS, --mods MODS  run only this list of modules (sep by comma) <default:
                         all>
-  -x, --exclude         do not run this list of modules (used with -m)
   --no-color            disable coloring
+  -o OUT_DIR, --out-dir OUT_DIR
+                        directory to save output
 ```
 
 ## Modules
