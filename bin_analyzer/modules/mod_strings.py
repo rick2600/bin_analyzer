@@ -57,7 +57,7 @@ class Mod_Strings:
         #fout = os.path.join(args.out_dir, _fout)
         m = hashlib.sha1()
         m.update(fname)
-        fout = os.path.join("/tmp", m.hexdigest() + ".txt")
+        fout = os.path.join("/tmp", "bin_" + m.hexdigest() + ".txt")
         if not os.path.exists(fout):
             outfd = open(fout, 'w')
             subprocess.call([STRINGS_PATH, "-a", fname], stdout=outfd)
