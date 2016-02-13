@@ -49,27 +49,33 @@ class BinAnalyzer:
         return is_valid, text
 
     def create_list_of_binaries(self):
-        self.helper.print_title("Creating list of binaries")
+        if os.path.isfile(self.args.file):
+            self.helper.print_title("Analysing standalone binary")
+            self.include_file_list('',self.args.file)
 
-        for (folder, _, files) in os.walk(self.args.dir):
-            for f in files:
-                path = os.path.abspath(os.path.join(folder, f))
-                iself, text = self.isELF(path)
-                if self.args.verbose > 0:
-                    self.helper.print_normal("    %s|" %(path.ljust(60)))
+        elif os.path.isdir(self.args.file):
+            self.helper.print_title("Creating list of binaries")
+            for (folder, _, files) in os.walk(self.args.file):
+                for f in files:
+                    self.include_file_list(folder,f)
+            self.helper.print_normal("\n    Found %d binaries\n\n" %(len(self.filelist)))
 
-                if iself:
-                    self.filelist.append(path)
-                    if self.args.verbose > 0:
-                        self.helper.print_good(text)
-                        self.helper.print_normal("\n")
-                else:
-                    if self.args.verbose > 0:
-                        self.helper.print_bad(text)
-                        self.helper.print_normal("\n")
+    def include_file_list(self, folder, f):
+        path = os.path.abspath(os.path.join(folder, f))
+        iself, text = self.isELF(path)
+        if self.args.verbose > 0:
+            self.helper.print_normal("    %s|" %(path.ljust(60)))
 
-        self.helper.print_normal("\n    Found %d binaries\n\n" %(len(self.filelist)))
-   
+        if iself:
+            self.filelist.append(path)
+            if self.args.verbose > 0:
+                self.helper.print_good(text)
+                self.helper.print_normal("\n")
+        else:
+            if self.args.verbose > 0:
+                self.helper.print_bad(text)
+                self.helper.print_normal("\n")
+
     def create_out_dir(self):
         out_dir = os.path.abspath(self.args.out_dir)
         if not os.path.exists(out_dir):
@@ -80,7 +86,8 @@ class BinAnalyzer:
 
     def pre_scan(self):
         self.create_list_of_binaries()
-        self.create_out_dir()
+        if self.args.out_dir:
+            self.create_out_dir()
         temp_list = list(self.mod_list)
         if self.mods_choice != None:
             if self.args.exclude:
