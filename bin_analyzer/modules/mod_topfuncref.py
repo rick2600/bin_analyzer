@@ -13,19 +13,20 @@ class Mod_TopFuncRef:
         for fname in filelist:
             with open(fname, 'rb') as f:
                 elf = pwnlib.elf.ELF(fname)
-                for seg in elf.executable_segments:
-                    if seg.header['p_type'] == 'PT_LOAD':
-                        tops = self.top_funcs(elf, elf.entrypoint, seg.header['p_filesz'])
+
+                for sec in elf.sections:
+                    if sec.name == '.text':
+                        tops = self.top_funcs(elf, sec.header['sh_addr'], sec.header['sh_size'])
 
             s = "    %s\n" %(fname.ljust(60))
             helper.print_normal(s)
             for sym, n in tops:
                 s = "        %s: ref %4d\n" %(sym.ljust(60), n)
                 helper.print_normal(s)
+            helper.print_normal("\n")
 
 
     def top_funcs(self, elf, entry, size, top=10):
-        #print elf.arch
         calls = {}
         start = entry
         _size = min(size, 0x1000)
