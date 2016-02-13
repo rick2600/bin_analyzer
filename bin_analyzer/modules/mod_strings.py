@@ -2,6 +2,7 @@
 import os
 import subprocess
 import re
+import hashlib
 
 STRINGS_PATH = "/usr/bin/strings"
 
@@ -51,9 +52,12 @@ class Mod_Strings:
 
 
     def run_strings(self, fname, args):
-        dir_path = os.path.abspath(args.dir) + "/"
-        _fout = fname.replace(dir_path, "").replace("/", "_") + ".txt"
-        fout = os.path.join(args.out_dir, _fout)
+        #dir_path = os.path.abspath(args.dir) + "/"
+        #_fout = fname.replace(dir_path, "").replace("/", "_") + ".txt"
+        #fout = os.path.join(args.out_dir, _fout)
+        m = hashlib.sha1()
+        m.update(fname)
+        fout = os.path.join("/tmp", m.hexdigest() + ".txt")
         if not os.path.exists(fout):
             outfd = open(fout, 'w')
             subprocess.call([STRINGS_PATH, "-a", fname], stdout=outfd)
