@@ -24,16 +24,17 @@ class Mod_FindDeps:
                                 if tag.needed not in unique_deps:
                                     unique_deps.append(tag.needed)
 
-            if args.verbose >= 1:
-                trunc = ', '.join(deps[0:3])
-                if len(deps) > 3:
-                    trunc += '...'
+            #if args.verbose >= 1:
+            trunc = ', '.join(deps[0:3])
+            if len(deps) > 3:
+                trunc += '...'
 
-                s = "    %s| %d deps found (%s)\n" %(fname.ljust(60), len(deps), trunc)
-                
-                helper.print_normal(s)
-                if args.verbose >= 2:
-                    for dep in deps:
-                        helper.print_normal("    %s\n"%(dep))
+            s = "    %s| %d deps found (%s)\n" %(fname.ljust(60), len(deps), trunc)
+            helper.print_normal(s)
+
+            if args.verbose >= 1:
+                for dep in deps:
+                    helper.print_normal("        %s\n"%(dep))
+                helper.print_normal("\n")
 
         helper.print_normal("    Found %d unique deps\n" %(len(unique_deps)))
