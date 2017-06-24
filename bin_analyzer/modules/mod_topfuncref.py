@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import pwnlib
+#import pwnlib
+from pwn import *
 import re
 
 class Mod_TopFuncRef:
@@ -34,7 +35,7 @@ class Mod_TopFuncRef:
         while size > 0:
             data = elf.read(start, _size)
             try:
-                lines = pwnlib.elf.disasm(data, 
+                lines = pwnlib.asm.disasm(data, 
                                       arch=elf.arch, 
                                       vma=start).split("\n")
             except TypeError:
